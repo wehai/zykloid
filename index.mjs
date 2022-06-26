@@ -34,7 +34,7 @@ try {
    service:'Gmail',
    auth: {
      user: 'lissyy64@gmail.com',
-     pass: 'qxmmsubuoqehwclc'
+     pass: 'qxm'
    }
 }
 );
