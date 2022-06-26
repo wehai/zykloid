@@ -1,11 +1,10 @@
-import express from 'express'
 
-
+//[]
 'use strict';
 import Datastore from '@seald-io/nedb';
 import nodemailer from 'nodemailer'
 
-const sessionsdb = new Datastore({filename:'db/sessionsdb.db'})
+const sessionsdb = new Datastore({filename:'db/sessionsdb.db'});
 const playersdb = new Datastore({filename:'db/playersdb.db'});
 const submissionsdb = new Datastore({filename:'db/submissionsdb.db'});
 try {
@@ -15,6 +14,16 @@ try {
  } catch (error) {
    // loading has failed
  }
+
+ let transporter = nodemailer.createTransport({
+    service:'Gmail',
+    auth: {
+      user: 'lissyy64@gmail.com',
+      pass: 'qxmmsubuoqehwclc'
+    }
+}
+);
+
 async function main() {
 
     console.log('Credentials obtained, sending message...');
@@ -23,14 +32,7 @@ async function main() {
     // to re-use the same account for future mail deliveries
 
     // Create a SMTP transporter object
-    let transporter = nodemailer.createTransport({
-        service:'Gmail',
-        auth: {
-          user: 'lissyy64@gmail.com',
-          pass: 'qxmmsubuoqehwclc'
-        }
-    }
-    );
+    
 
     let message = {
         //from: 'jelisa.weber@stud.kh-berlin.de',
@@ -93,8 +95,52 @@ console.log("csessionId:" + currentsession._id)
        
         }
  //const docs = await sessionsdb.findAsync({ Zug: {submissions: [{ $gte: 1 } ]}})
- const docs = await sessionsdb.findOneAsync({full:"true"})  
- console.log(docs.Zug.submissions)
+ const csession = await sessionsdb.findOneAsync({ $or: [{ full:"true" }, { send:"false" }] })  
+ const subids = csession.Zug.submissions
+ //console.log(subids)
+ 
+
+ subids.forEach(async function(element,index,array) {
+let nextsub = array[index+1]
+ if (nextsub == undefined){
+    nextsub = array[index*0]
+} 
+
+const csub = await submissionsdb.findOneAsync({_id: element}) 
+const csubcontent = csub.submission.text
+console.log(element +"ctext: " + csubcontent + " nextsub:"+nextsub)
+
+const nextplayersub = await submissionsdb.findOneAsync({_id: nextsub})  
+const nextplayerId = nextplayersub.player_id
+console.log("nextplayer Id: " + nextplayerId)
+
+const nextplayer = await playersdb.findOneAsync({_id: nextplayerId})
+const nextplayerEmail = nextplayer.email
+console.log("nextplayer email: " + nextplayerEmail)
+
+const nextsubURL= `http://localhost:3000/draw?session=${csession._id}&player=${nextplayerId}`
+
+let message = {
+    to: nextplayerEmail,
+    subject: "Zykloide, 1st round",
+     html:
+       `<p>Hello to myself. new text: <b> ${csubcontent} </b></p>` +
+       `<p>answere here: ${nextsubURL}</p>`,
+ };
+ let info = await transporter.sendMail(message);
+
+ console.log('Message sent successfully!');
+ console.log(nodemailer.getTestMessageUrl(info));
+
+ // only needed when using pooled connections
+ transporter.close(); 
+ try{
+    await sessionsdb.updateAsync({ _id: csession._id },{ $set: { send: "true" } }, { multi: true })
+  
+} catch(error){
+     console.warn(error) 
+  }
+ });
 
 
 }
