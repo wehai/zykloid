@@ -5,7 +5,7 @@ import express from 'express'
 import Datastore from '@seald-io/nedb';
 import nodemailer from 'nodemailer'
 
-const sessionsdb = new Datastore({filename:'db/sessionsdb.db'});
+const sessionsdb = new Datastore({filename:'db/sessionsdb.db'})
 const playersdb = new Datastore({filename:'db/playersdb.db'});
 const submissionsdb = new Datastore({filename:'db/submissionsdb.db'});
 try {
