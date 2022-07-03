@@ -1,0 +1,96 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "FT88";
+  src: url('/fonts/ft88-italic-webfont.eot');
+  src: url('/fonts/ft88-italic-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/ft88-italic-webfont.svg#ft88italic') format('svg'),
+       url('/fonts/ft88-italic-webfont.woff2') format('woff2'),
+       url('/fonts/ft88-italic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;}
+@font-face {
+  font-family: "FT88regular";
+  src: url('/fonts/ft88-regular-webfont.eot');
+  src: url('/fonts/ft88-regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/ft88-regular-webfont.svg#ft88italic') format('svg'),
+       url('/fonts/ft88-regular-webfont.woff2') format('woff2'),
+       url('/fonts/ft88-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "FT88bold";
+  src: url('/fonts/ft88-bold-webfont.eot');
+  src: url('/fonts/ft88-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/ft88-bold-webfont.svg#ft88italic') format('svg'),
+       url('/fonts/ft88-bold-webfont.woff2') format('woff2'),
+       url('/fonts/ft88-bold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;;
+}
+@font-face {
+  font-family: "Abordage";
+  src: url('/fonts/abordage-regular-webfont.eot');
+  src: url('/fonts/abordage-regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/abordage-regular-webfont.svg#ft88italic') format('svg'),
+       url('/fonts/abordage-regular-webfont.woff2') format('woff2'),
+       url('/fonts/abordage-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+  * {
+    margin: 0;
+  }
+
+  body {
+    background-color: #eef8f4;
+    background: radial-gradient(rgb(161, 198, 164), rgb(161, 198, 164, 0) 75%);
+  }
+ #border{
+    height: 100%;
+    width: 100%;
+    -webkit-box-shadow: inset 0px 0px 15px 5px rgb(161, 198, 164);
+    box-shadow: inset 0px 0px 15px 5px rgb(161, 198, 164);
+  }
+
+#text {
+  
+    font-family: Abordage;
+    padding: 60px 20px;
+    font-size: 20px;
+  }
+  
+  #text h1{ 
+    
+    padding: 20px 20px 10px;
+    font-size: 7vw;
+    text-align: center;
+  }
+  #text h2{ 
+    font-family: FT88regular;
+    padding: 10px 0px 20px;
+    font-size: 5vw;
+    text-align: center;
+  }
+  #text p{
+    text-align:left;
+  
+  }
+  #text li, #text ul{
+    text-align:left;
+  }
+a{
+
+    color:rgb(103, 137, 106)
+}
+  a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+a:hover {
+  color: #ffce33;
+  text-decoration: none;
+  text-shadow: 0 0 1vw rgb(0,0,0);
+}
