@@ -36,7 +36,7 @@ try {
    service:'Gmail',
    auth: {
      user: 'zykloide.game@gmail.com',
-     pass: 'volyfmsemnhwpixk'
+     pass: 'volyfm........'
    }
 }
 )
